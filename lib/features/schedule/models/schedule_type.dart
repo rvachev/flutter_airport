@@ -1,0 +1,1 @@
+enum ScheduleType { arrive, depart }
