@@ -52,6 +52,9 @@ class _AirportInformationState extends State<AirportInformation> {
                                 width: 36,
                               ),
                             ),
+                            const SizedBox(
+                              width: 5,
+                            ),
                             Text(
                               weather.temp.toString(),
                               style: const TextStyle(
@@ -68,7 +71,36 @@ class _AirportInformationState extends State<AirportInformation> {
             ),
           ),
         ),
-        Flexible(flex: 2, child: Container())
+        Flexible(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [defaultBoxShadow]),
+                child: SizedBox(
+                  height: 36,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('Омский аэропорт им. Карбышева',
+                            style: Theme.of(context).textTheme.subtitle1!),
+                        Text(
+                          'Транссибирская ул., 28',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(fontWeight: FontWeight.w600),
+                        )
+                      ]),
+                ),
+              ),
+            ))
       ],
     );
   }

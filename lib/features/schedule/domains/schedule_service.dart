@@ -27,7 +27,8 @@ class ScheduleService {
   }
 
   Future<Map<String, dynamic>> _getSchedule() async {
-    String data = await rootBundle.loadString('assets/data/schedule.json');
+    String data = await Future.delayed(const Duration(seconds: 1),
+        () async => rootBundle.loadString('assets/data/schedule.json'));
     Map<String, dynamic> rawData = jsonDecode(data);
     return rawData;
   }

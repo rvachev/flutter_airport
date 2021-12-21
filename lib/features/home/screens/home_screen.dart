@@ -61,8 +61,7 @@ class HeaderWidget extends StatelessWidget {
                 )),
                 Flexible(
                     flex: 2,
-                    child: Blur(
-                      coverColor: mainColor,
+                    child: SizedBox(
                       height: screenHeight * 0.3,
                       child: Image.asset(
                         'assets/bgs/airport.jpeg',
@@ -71,23 +70,6 @@ class HeaderWidget extends StatelessWidget {
                     ))
               ],
             ),
-            // Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text('Омский аэропорт им. Карбышева',
-            //           style: Theme.of(context)
-            //               .textTheme
-            //               .bodyText1!
-            //               .copyWith(color: headerTextColor)),
-            //       Text(
-            //         'Транссибирская ул., 28',
-            //         style: Theme.of(context)
-            //             .textTheme
-            //             .subtitle1!
-            //             .copyWith(color: headerTextColor),
-            //       )
-            //     ])
           ],
         ),
       ),
