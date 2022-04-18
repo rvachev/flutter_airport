@@ -23,8 +23,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
   final List<Widget> screens = [
     const HomeScreen(),
     const SearchScreen(),
-    const ScheduleScreen(),
-    const ProfileScreen()
+    const ScheduleScreen()
   ];
 
   @override

@@ -1,3 +1,4 @@
+import 'package:airport/common/extensions/datetime_extension.dart';
 import 'package:airport/common/styles/colors.dart';
 import 'package:airport/common/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class DatePicker extends StatefulWidget {
 
 class _DatePickerState extends State<DatePicker> {
   DateTime currentDate = DateTime.now();
+  bool hasPreviousDate = true;
+  bool hasNextDate = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +26,19 @@ class _DatePickerState extends State<DatePicker> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-                onPressed: decrementDate,
-                icon: const Icon(
+                onPressed: hasPreviousDate ? decrementDate : null,
+                icon: Icon(
                   Icons.arrow_back_ios,
-                  color: mainColor,
+                  color: hasPreviousDate ? mainColor : Colors.grey,
                 )),
             _DateEntry(
               date: currentDate,
               onDateTap: onDateTap,
             ),
             IconButton(
-                onPressed: incrementDate,
-                icon: const Icon(Icons.arrow_forward_ios, color: mainColor)),
+                onPressed: hasNextDate ? incrementDate : null,
+                icon: Icon(Icons.arrow_forward_ios,
+                    color: hasNextDate ? mainColor : Colors.grey)),
           ],
         ),
         const CustomDivider(
@@ -62,6 +66,12 @@ class _DatePickerState extends State<DatePicker> {
     DateTime newDate = currentDate.add(const Duration(days: 1));
     if (newDate.isBefore(DateTime.now().add(const Duration(days: 3)))) {
       setState(() {
+        hasPreviousDate = true;
+        if (newDate.isSameDate(DateTime.now().add(const Duration(days: 3)))) {
+          hasNextDate = false;
+        } else {
+          hasNextDate = true;
+        }
         currentDate = newDate;
         widget.onDateChanged(currentDate);
       });
@@ -72,6 +82,13 @@ class _DatePickerState extends State<DatePicker> {
     DateTime newDate = currentDate.subtract(const Duration(days: 1));
     if (newDate.isAfter(DateTime.now().subtract(const Duration(days: 4)))) {
       setState(() {
+        hasNextDate = true;
+        if (newDate
+            .isSameDate(DateTime.now().subtract(const Duration(days: 3)))) {
+          hasPreviousDate = false;
+        } else {
+          hasPreviousDate = true;
+        }
         currentDate = newDate;
         widget.onDateChanged(currentDate);
       });

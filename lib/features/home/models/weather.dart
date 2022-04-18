@@ -6,11 +6,11 @@ class Weather {
   Weather(
       {required this.temp, required this.description, required this.imageUrl});
 
-  factory Weather.fromJson(Map<String, dynamic> json) {
+  factory Weather.fromMap(Map<String, dynamic> map) {
     return Weather(
-        temp: json['current']['temp_c'].toInt(),
-        description: json['current']['condition']['text'],
+        temp: map['current']['temp_c'].toInt(),
+        description: map['current']['condition']['text'],
         imageUrl: 'https://' +
-            json['current']['condition']['icon'].toString().substring(2));
+            map['current']['condition']['icon'].toString().substring(2));
   }
 }

@@ -1,13 +1,12 @@
 import 'package:airport/common/styles/colors.dart';
 import 'package:airport/common/widgets/flight_information.dart';
-import 'package:airport/features/schedule/domains/schedule_service.dart';
-import 'package:airport/features/schedule/models/schedule_item.dart';
 import 'package:airport/features/schedule/models/schedule_type.dart';
+import 'package:airport/features/search/models/search_model.dart';
+import 'package:airport/features/search/services/search_flight_service.dart';
 import 'package:airport/features/search/widgets/date_picker.dart';
 import 'package:airport/features/search/widgets/flight_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -21,7 +20,6 @@ class _SearchScreenState extends State<SearchScreen> {
   ScheduleType currentType = ScheduleType.arrive;
   DateTime currentDate = DateTime.now();
   TextEditingController textEditingController = TextEditingController();
-  final List<ScheduleItem> searchedFlights = [];
   bool isSearched = false;
 
   @override
@@ -63,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 height: 20,
               ),
               OutlinedButton(
-                onPressed: () => searchFlights(),
+                onPressed: searchFlights,
                 style: ButtonStyle(
                     side: MaterialStateProperty.all(
                         const BorderSide(color: mainColor))),
@@ -75,20 +73,36 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(
                 height: 20,
               ),
-              isSearched && searchedFlights.isNotEmpty
-                  ? ExpansionTile(
-                      title: Text('Найденные рейсы (${searchedFlights.length})',
-                          style: const TextStyle(fontSize: 16)),
-                      children: searchedFlights
-                          .map((item) => FlightInformation(item: item))
-                          .toList(),
-                    )
-                  : isSearched
-                      ? const Center(
-                          child: Text('Рейсов не найдено',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500)))
-                      : Container()
+              isSearched
+                  ? OnBuilder.all(
+                      listenTo: searchFlightService,
+                      onWaiting: () => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      onError: (err, errFunc) => const Center(
+                            child: Text('Что-то пошло не так'),
+                          ),
+                      onData: (state) {
+                        final searchedFlights = searchFlightService.state.data;
+                        return searchedFlights.isNotEmpty
+                            ? ExpansionTile(
+                                title: Text(
+                                    'Найденные рейсы (${searchedFlights.length})',
+                                    style: const TextStyle(fontSize: 16)),
+                                children: searchedFlights
+                                    .map((item) => FlightInformation(
+                                          item: item,
+                                          fromSearch: true,
+                                        ))
+                                    .toList(),
+                              )
+                            : const Center(
+                                child: Text('Рейсов не найдено',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)));
+                      })
+                  : const Center()
             ],
           ),
         ),
@@ -97,19 +111,11 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void searchFlights() async {
-    searchedFlights.clear();
-    List<ScheduleItem> schedule =
-        await RM.get<ScheduleService>().state.getScheduleByType(currentType);
-    for (ScheduleItem item in schedule) {
-      if (item.date == DateFormat('dd.MM.yyyy').format(currentDate)) {
-        String searchedText = textEditingController.text.toLowerCase();
-        if (item.flight.toLowerCase().contains(searchedText) ||
-            item.airport.toLowerCase().contains(searchedText) ||
-            item.company.toLowerCase().contains(searchedText)) {
-          searchedFlights.add(item);
-        }
-      }
-    }
+    SearchModel model = SearchModel(
+        date: currentDate,
+        searchedText: textEditingController.text,
+        type: currentType);
+    searchFlightService.state.search(model);
 
     setState(() {
       isSearched = true;

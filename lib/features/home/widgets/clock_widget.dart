@@ -42,11 +42,11 @@ class _ClockWidgetState extends State<ClockWidget> {
         Theme.of(context).textTheme.headline1!.copyWith(color: widget.color);
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        formatTime(_hours),
+        formatRawTime(_hours),
         style: clockStyle,
       ),
       Text(
-        formatTime(_minutes),
+        formatRawTime(_minutes),
         style: clockStyle,
       )
     ]);

@@ -22,7 +22,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Поиск'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.flight_takeoff), label: 'Расписание'),
-    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
   ];
 
   @override
