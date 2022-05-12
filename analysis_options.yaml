@@ -4,3 +4,7 @@ linter:
   rules:
     avoid_print: true
     prefer_single_quotes: true
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore

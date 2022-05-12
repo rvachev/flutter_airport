@@ -1,64 +1,13 @@
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class ImageModel {
-  final int id;
-  final String? url;
-  final String? thumbnailUrl;
+part '../../../generated/image_model.freezed.dart';
+part '../../../generated/image_model.g.dart';
 
-  ImageModel({
-    required this.id,
-    required this.url,
-    required this.thumbnailUrl,
-  });
+@freezed
+class ImageModel with _$ImageModel {
+  factory ImageModel({required int id, String? url, String? thumbnailUrl}) =
+      _ImageModel;
 
-  ImageModel copyWith({
-    int? id,
-    String? url,
-    String? thumbnailUrl,
-  }) {
-    return ImageModel(
-      id: id ?? this.id,
-      url: url ?? this.url,
-      thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'url': url,
-      'thumbnailUrl': thumbnailUrl,
-    };
-  }
-
-  factory ImageModel.fromMap(Map<String, dynamic> map) {
-    return ImageModel(
-      id: map['id']?.toInt() ?? 0,
-      url: map['url'] ?? '',
-      thumbnailUrl:
-          map['formats'] != null ? map['formats']['thumbnail']['url'] : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ImageModel.fromJson(String source) =>
-      ImageModel.fromMap(json.decode(source));
-
-  @override
-  String toString() =>
-      'ImageModel(id: $id, url: $url, thumbnailUrl: $thumbnailUrl)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is ImageModel &&
-        other.id == id &&
-        other.url == url &&
-        other.thumbnailUrl == thumbnailUrl;
-  }
-
-  @override
-  int get hashCode => id.hashCode ^ url.hashCode ^ thumbnailUrl.hashCode;
+  factory ImageModel.fromJson(Map<String, dynamic> json) =>
+      _$ImageModelFromJson(json);
 }

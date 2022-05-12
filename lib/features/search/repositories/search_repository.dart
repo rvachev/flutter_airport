@@ -18,7 +18,7 @@ class SearchRepository {
     });
     List<ScheduleItem> schedule = [];
     for (var item in response.data) {
-      schedule.add(ScheduleItem.fromMap(item));
+      schedule.add(ScheduleItem.fromJson(item));
     }
     return schedule;
   }

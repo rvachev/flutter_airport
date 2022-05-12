@@ -2,7 +2,6 @@ import 'package:airport/common/styles/colors.dart';
 import 'package:airport/common/utils/textfield_focus.dart';
 import 'package:airport/features/home/screens/home_screen.dart';
 import 'package:airport/features/navigation/widgets/custom_bottom_navigation_bar.dart';
-import 'package:airport/features/profile/screens/profile_screen.dart';
 import 'package:airport/features/schedule/screens/schedule_screen.dart';
 import 'package:airport/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
