@@ -15,3 +15,7 @@ String formatDate(String date) {
 String formatTime(String time) {
   return time.substring(0, 5);
 }
+
+String formatDateFullMonth(DateTime date) {
+  return DateFormat('dd MMMM y').format(date);
+}
