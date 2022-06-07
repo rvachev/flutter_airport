@@ -9,9 +9,9 @@ part of '../features/schedule/models/company.dart';
 _$_Company _$$_CompanyFromJson(Map<String, dynamic> json) => _$_Company(
       id: json['id'] as int,
       name: json['name'] as String,
-      image: json['image'] == null
+      image: json['avatar'] == null
           ? null
-          : ImageModel.fromJson(json['image'] as Map<String, dynamic>),
+          : ImageModel.fromJson(json['avatar'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_CompanyToJson(_$_Company instance) =>

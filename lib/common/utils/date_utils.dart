@@ -17,5 +17,9 @@ String formatTime(String time) {
 }
 
 String formatDateFullMonth(DateTime date) {
-  return DateFormat('dd MMMM y').format(date);
+  return DateFormat('dd MMMM y', 'ru').format(date);
+}
+
+String formatDateAndTime(DateTime date) {
+  return DateFormat('dd.MM.yyyy HH:mm').format(date);
 }

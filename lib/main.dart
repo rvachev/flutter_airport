@@ -1,16 +1,32 @@
+import 'package:airport/common/services/notifications_service.dart';
 import 'package:airport/common/styles/colors.dart';
 import 'package:airport/features/flight/models/detailed_screen_args.dart';
 import 'package:airport/features/flight/screens/flight_detailed_screen.dart';
 import 'package:airport/features/navigation/screens/navigation_container.dart';
 import 'package:airport/features/splash/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await initializeDateFormatting();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    notificationsService.state.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

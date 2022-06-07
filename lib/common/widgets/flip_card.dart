@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 class FlipCard extends StatefulWidget {
   final Widget frontSide;
   final Widget rearSide;
+  final bool showFrontSide;
+  final bool isFlippible;
 
-  const FlipCard({Key? key, required this.frontSide, required this.rearSide})
+  const FlipCard(
+      {Key? key,
+      required this.frontSide,
+      required this.rearSide,
+      this.showFrontSide = true,
+      this.isFlippible = true})
       : super(key: key);
 
   @override
@@ -14,12 +21,20 @@ class FlipCard extends StatefulWidget {
 }
 
 class _FlipCardState extends State<FlipCard> {
-  bool _isFrontSideShowed = true;
+  late bool _isFrontSideShowed;
+
+  @override
+  void initState() {
+    _isFrontSideShowed = widget.showFrontSide;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => setState(() => _isFrontSideShowed = !_isFrontSideShowed),
+      onTap: widget.isFlippible
+          ? () => setState(() => _isFrontSideShowed = !_isFrontSideShowed)
+          : null,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 600),
         transitionBuilder: _transitionBuilder,

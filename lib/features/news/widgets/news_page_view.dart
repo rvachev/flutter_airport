@@ -23,10 +23,22 @@ class _NewsPageViewState extends State<NewsPageView> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+            'Новости',
+            style: textTheme.headline5,
+          ),
+        ),
+        const SizedBox(
+          height: 8.0,
+        ),
         SizedBox(
           height: 200,
           child: PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             itemCount: widget.news.length,
             itemBuilder: (context, index) {
@@ -36,10 +48,14 @@ class _NewsPageViewState extends State<NewsPageView> {
                   Expanded(
                       flex: 3,
                       child: FlipCard(
-                        frontSide: CachedNetworkImage(
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                            imageUrl: getImagePath(news.image!.url!)),
+                        showFrontSide: news.image?.url != null,
+                        isFlippible: news.image?.url != null,
+                        frontSide: news.image?.url != null
+                            ? CachedNetworkImage(
+                                height: double.infinity,
+                                fit: BoxFit.cover,
+                                imageUrl: getImagePath(news.image!.url!))
+                            : const Center(),
                         rearSide: Container(
                           padding: const EdgeInsets.all(8.0),
                           height: double.infinity,
