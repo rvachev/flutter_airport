@@ -1,16 +1,35 @@
-# airport_app
+# Омский аэропорт
 
-A new Flutter project.
+Приложение-концепт для Омского аэропорта им. Карбышева
 
-## Getting Started
+## Функции
 
-This project is a starting point for a Flutter application.
+- Информация об аэропорте
+  - Местное время
+  - Адрес
+  - Погода
+- Новости аэропорта
+- Просмотр рейсов
+- Отслеживание прилёта/вылета рейсов
+- Поиск рейсов по критериям
+  - Тип рейса (вылет/прилёт)
+  - Дата рейса (3 дня до, 3 дня после и текущий день)
+  - Поисковая строка по городу, авиакомпании, номеру рейса
 
-A few resources to get you started if this is your first Flutter project:
+## Запуск проекта
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Текущая версия приложения поддерживает запуск на мобильные устройства для Android и iOS
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Для запуска проекта необходимо наличие Flutter SDK.
+
+### Android
+
+Требуется наличие Android SDK
+
+### iOS
+
+Требуется наличие iOS SDK
+
+## Дополнительная информация
+
+Следить за изменениями можно на GitHub `https://github.com/rvachev/flutter_airport`
